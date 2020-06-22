@@ -15,11 +15,10 @@ public class DeleteUserService {
     UserRepository repository;
 
     public void deleteUser(Long id) {
-        Optional<User> userOptional = repository.findById(id);
-        if (!userOptional.isPresent()) {
-            throw new UserNotFoundException(id);
-        } else {
-            repository.deleteById(id);
-        }
+
+        repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        repository.deleteById(id);
     }
 }
