@@ -54,8 +54,10 @@ public class UpdateUserControllerTest {
         user.setName("Test Name");
 
         Mockito.doThrow(new UserNotFoundException(user.getId())).when(updateUserService).updateUser(user.getId(), user);
+        ObjectMapper mapper = new ObjectMapper();
 
         mvc.perform(put("/users/" + user.getId().toString())
+                .content(mapper.writeValueAsString(user))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
