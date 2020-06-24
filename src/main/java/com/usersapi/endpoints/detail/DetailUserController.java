@@ -21,7 +21,8 @@ public class DetailUserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Execute GET method")
-    public ResponseEntity<Optional<User>> list(@PathVariable Long id) {
+    public ResponseEntity<User> list(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.listUser(id));
     }
 }
+

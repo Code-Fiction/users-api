@@ -13,13 +13,8 @@ public class DetailUserService {
     @Autowired
     UserRepository repository;
 
-    public Optional<User> listUser(Long id) {
-
-        Optional<User> user = repository.findById(id);
-        if (!user.isPresent()) {
-            throw new UserNotFoundException(id);
-        } else {
-            return repository.findById(id);
-        }
+    public User listUser(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 }

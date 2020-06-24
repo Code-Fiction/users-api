@@ -16,12 +16,10 @@ public class UpdateUserService {
 
     public User updateUser(Long id, User user) {
 
-        Optional<User> userOptional = repository.findById(id);
-        if (!userOptional.isPresent()) {
-            throw new UserNotFoundException(id);
-        } else {
-            repository.findById(id);
-            return repository.save(user);
-        }
+        repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        user.setId(id);
+        return repository.save(user);
     }
 }
